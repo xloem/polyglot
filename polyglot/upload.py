@@ -277,3 +277,17 @@ class Upload(bitsv.PrivateKey):
                                                 encoding=encoding,
                                                 utxos=utxos[-1:])
         return txid
+
+    def confirmations(self, txids):
+        """return an array of the number of confirmations the passed txids have"""
+        dct = {}
+        utxos = self.get_unspents()
+        for utxo in utxos:
+            dct[utxo.txid] = utxo.confirmations
+        lst = []
+        for txid in txids:
+            if txid not in dct:
+                lst.append(None)
+            else:
+                lst.append(dct[txid])
+        return lst
