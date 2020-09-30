@@ -85,7 +85,7 @@ class Upload(bitsv.PrivateKey):
         """filters out all utxos with 0 conf or too low amount for use in a BCAT part transaction"""
         filtered_utxos = []
         for utxo in self.get_unspents():
-            if utxo.confirmations >= self.utxo_min_confirmations and utxo.amount >= 100000:
+            if utxo.confirmations >= self.utxo_min_confirmations and utxo.amount >= self.fee * 100000:
                 filtered_utxos.append(utxo)
         return filtered_utxos
 
@@ -107,7 +107,7 @@ class Upload(bitsv.PrivateKey):
         lst = []
         utxos = self.get_unspents()
         for utxo in utxos:
-            if utxo.amount != 100000:
+            if utxo.amount != int(self.fee * 100000):
                 lst.append(utxo)
         return lst
 
@@ -116,11 +116,11 @@ class Upload(bitsv.PrivateKey):
         sum = 0
         for utxo in utxos:
             sum += utxo.amount
-        num_splits = sum // 100000 - 1
+        num_splits = sum // (self.fee * 100000) - 1
         my_addr = self.address
         outputs = []
         for i in range(num_splits):
-            outputs.append((my_addr, 0.001, 'bsv'))
+            outputs.append((my_addr, self.fee * 0.001, 'bsv'))
         return outputs
 
     def combine_and_split_utxos(self, utxos):
