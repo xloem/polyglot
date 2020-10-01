@@ -44,7 +44,7 @@ class Upload(bitsv.PrivateKey):
     @staticmethod
     def get_file_ext(file):
         ext = Path(file).suffix
-        if ext and ext[0] = '.':
+        if ext and ext[0] == '.':
             ext = ext[1:]
         return ext
 
