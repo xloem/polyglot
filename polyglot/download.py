@@ -104,9 +104,9 @@ class Download(NetworkAPI):
         fields['data'] = data[offset + 1]
         fields['mediatype'] = data[offset + 2].decode('utf-8')
         if len(data) > offset + 3:
-            fields['encoding'] = self.binary_to_bsv_string(data[offset + 3].decode('utf-8'))
+            fields['encoding'] = self.binary_to_bsv_string(data[offset + 3])
         if len(data) > offset + 4:
-            fields['name'] = self.binary_to_bsv_string(data[offset + 4].decode('utf-8'))
+            fields['name'] = self.binary_to_bsv_string(data[offset + 4])
         if len(data) > offset + 5:
             fields['extra'] = data[offset + 5:]
         return fields
