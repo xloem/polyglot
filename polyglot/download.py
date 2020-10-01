@@ -164,7 +164,7 @@ class Download(NetworkAPI):
         offset = 0
         if len(data[0]) == 0:
             offset = 1
-        return b''.join(data[offset:])
+        return b''.join(data[offset + 1:])
 
     def bcat_part_binary_from_txid(self, txid):
         binary = b''
