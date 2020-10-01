@@ -112,7 +112,7 @@ class Download(NetworkAPI):
         return fields
 
     def b_binary_from_pushdata(self, data):
-        fields = self.b_fields_from_pushdata
+        fields = self.b_fields_from_pushdata(data)
         if len(fields):
             return fields['data']
         else:
